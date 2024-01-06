@@ -19,8 +19,7 @@ snake_pos = {
 }
 
 snake_speed = 10
-snake_tails = [[snake_pos['x'] + 20, snake_pos['y']], [snake_pos['x'] + 40, snake_pos['y']],
-               [snake_pos['x'] + 60, snake_pos['y']]]
+snake_tails = []
 food_pos = {
     'x': round(randrange(0, scr_width - 10) / 10) * 10,
     'y': round(randrange(0, scr_height - 10) / 10) * 10,
@@ -31,16 +30,16 @@ while not game_end:
         if event.type == pg.QUIT:
             game_end = True
         elif event.type == pg.KEYDOWN:
-            if event.key == pg.K_DOWN:
+            if event.key == pg.K_DOWN and snake_pos['y_chng'] == 0:
                 snake_pos['x_chng'] = 0
                 snake_pos['y_chng'] = snake_speed
-            elif event.key == pg.K_UP:
+            elif event.key == pg.K_UP and snake_pos['y_chng'] == 0:
                 snake_pos['x_chng'] = 0
                 snake_pos['y_chng'] = -snake_speed
-            elif event.key == pg.K_LEFT:
+            elif event.key == pg.K_LEFT and snake_pos['x_chng'] == 0:
                 snake_pos['x_chng'] = -snake_speed
                 snake_pos['y_chng'] = 0
-            elif event.key == pg.K_RIGHT:
+            elif event.key == pg.K_RIGHT and snake_pos['x_chng'] == 0:
                 snake_pos['x_chng'] = snake_speed
                 snake_pos['y_chng'] = 0
 
@@ -62,6 +61,11 @@ while not game_end:
     for t in snake_tails:
         pg.draw.rect(screen, 'black', (t[0], t[1], 10, 10))
 
+    for i, j in enumerate(snake_tails):
+        if (snake_pos['x'] + snake_pos['x_chng'] == snake_tails[i][0]
+                and snake_pos['y'] + snake_pos['y_chng'] == snake_tails[i][1]):
+            print('s')
+
     snake_pos['x'] += snake_pos['x_chng']
     snake_pos['y'] += snake_pos['y_chng']
 
@@ -73,6 +77,15 @@ while not game_end:
         snake_pos['y'] = scr_height
     elif snake_pos['y'] > scr_height:
         snake_pos['y'] = 0
+
+    if (snake_pos['x'] == food_pos['x']
+            and snake_pos['y'] == food_pos['y']):
+        snake_tails.append([food_pos['x'], food_pos['y']])
+
+        food_pos = {
+            'x': round(randrange(0, scr_width - 10) / 10) * 10,
+            'y': round(randrange(0, scr_height - 10) / 10) * 10,
+        }
 
     pg.draw.rect(screen, 'black', (snake_pos['x'], snake_pos['y'], 10, 10))
     pg.draw.rect(screen, 'red', (food_pos['x'], food_pos['y'], 10, 10))
