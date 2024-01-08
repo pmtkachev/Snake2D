@@ -14,12 +14,14 @@ class Apple(pg.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = self.food_pos['x']
         self.rect.y = self.food_pos['y']
+        self.score = 0
 
     def update(self, *args):
         self.rect.x = self.food_pos['x']
         self.rect.y = self.food_pos['y']
 
         if pg.sprite.collide_mask(self, args[0]):
+            self.score += 1
             args[0].snake_tails.append([self.food_pos['x'], self.food_pos['y']])
             self.food_pos = {
                 'x': randrange(0, 290, 10),

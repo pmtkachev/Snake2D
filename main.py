@@ -8,6 +8,7 @@ from src.snake import Snake
 pg.init()
 clock = pg.time.Clock()
 screen = pg.display.set_mode((WIDTH, HEIGHT))
+font = pg.font.Font('fnt/pixel.ttf', 25)
 snake, food = Snake(), Apple()
 sprites_group = pg.sprite.Group()
 gf.sprite_add_group(sprites_group, [snake, food])
@@ -29,6 +30,9 @@ if __name__ == '__main__':
 
         sprites_group.draw(screen)
         sprites_group.update(snake, screen)
+        score_str = font.render(f'SCORE: {food.score}', False, 'black')
+        snake_2d = font.render(f'SNAKE 2D', False, 'black')
+        screen.blits(blit_sequence=((score_str, (15, 5, 0, 0)), (snake_2d, (180, 5, 0, 0))))
 
         pg.display.flip()
         clock.tick(FPS)

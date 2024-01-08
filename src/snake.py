@@ -16,6 +16,7 @@ class Snake(pg.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = self.snake_pos['x']
         self.rect.y = self.snake_pos['y']
+        self.w_up, self.w_down, self.w_right, self.w_left = False, False, False, False
 
     def update(self, *args):
         self.rect.x = self.snake_pos['x']
