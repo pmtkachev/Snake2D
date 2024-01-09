@@ -7,12 +7,12 @@ class Snake(pg.sprite.Sprite):
         self.image = pg.image.load('img/snake_segment.png')
         self.snake_pos = {'x': 140,
                           'y': 140,
-                          'x_chng': 0,
+                          'x_chng': 10,
                           'y_chng': 0}
         self.snake_speed = 10
-        self.snake_tails = [[self.snake_pos['x'] - 10, self.snake_pos['y']],
-                            [self.snake_pos['x'] - 20, self.snake_pos['y']],
-                            [self.snake_pos['x'] - 30, self.snake_pos['y']]]
+        self.snake_tails = [[self.snake_pos['x'], self.snake_pos['y']],
+                            [self.snake_pos['x'], self.snake_pos['y']],
+                            [self.snake_pos['x'], self.snake_pos['y']]]
         self.rect = self.image.get_rect()
         self.rect.x = self.snake_pos['x']
         self.rect.y = self.snake_pos['y']
@@ -41,11 +41,11 @@ class Snake(pg.sprite.Sprite):
         self.snake_pos['x'] += self.snake_pos['x_chng']
         self.snake_pos['y'] += self.snake_pos['y_chng']
 
-        if self.snake_pos['x'] < -10:
-            self.snake_pos['x'] = 300
-        elif self.snake_pos['x'] > 300:
-            self.snake_pos['x'] = 0
-        elif self.snake_pos['y'] < -10:
-            self.snake_pos['y'] = 300
-        elif self.snake_pos['y'] > 300:
-            self.snake_pos['y'] = 0
+        if self.snake_pos['x'] < 20:
+            self.snake_pos['x'] = 270
+        elif self.snake_pos['x'] > 270:
+            self.snake_pos['x'] = 20
+        elif self.snake_pos['y'] < 40:
+            self.snake_pos['y'] = 270
+        elif self.snake_pos['y'] > 270:
+            self.snake_pos['y'] = 40
