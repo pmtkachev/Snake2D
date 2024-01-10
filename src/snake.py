@@ -5,47 +5,45 @@ class Snake(pg.sprite.Sprite):
     def __init__(self):
         super().__init__()
         self.image = pg.image.load('img/snake_segment.png')
-        self.snake_pos = {'x': 140,
-                          'y': 140,
-                          'x_chng': 10,
-                          'y_chng': 0}
-        self.snake_speed = 10
-        self.snake_tails = [[self.snake_pos['x'], self.snake_pos['y']],
-                            [self.snake_pos['x'], self.snake_pos['y']],
-                            [self.snake_pos['x'], self.snake_pos['y']]]
         self.rect = self.image.get_rect()
-        self.rect.x = self.snake_pos['x']
-        self.rect.y = self.snake_pos['y']
-        self.w_up, self.w_down, self.w_right, self.w_left = False, False, False, False
+        self.position = {'x': 140,
+                         'y': 140,
+                         'x_chng': 10,
+                         'y_chng': 0}
+        self.speed = 10
+        self.tail = []
+
+        self.rect.x = self.position['x']
+        self.rect.y = self.position['y']
 
     def update(self, *args):
-        self.rect.x = self.snake_pos['x']
-        self.rect.y = self.snake_pos['y']
+        self.rect.x = self.position['x']
+        self.rect.y = self.position['y']
 
-        for tail in self.snake_tails:
-            args[1].blit(self.image, (tail[0], tail[1], 10, 10))
+        for t in self.tail:
+            args[1].blit(self.image, (t[0], t[1], 10, 10))
 
-        ltx = self.snake_pos['x']
-        lty = self.snake_pos['y']
+        ltx = self.position['x']
+        lty = self.position['y']
 
-        for i, j in enumerate(self.snake_tails):
-            _ltx = self.snake_tails[i][0]
-            _lty = self.snake_tails[i][1]
+        for i, j in enumerate(self.tail):
+            _ltx = self.tail[i][0]
+            _lty = self.tail[i][1]
 
-            self.snake_tails[i][0] = ltx
-            self.snake_tails[i][1] = lty
+            self.tail[i][0] = ltx
+            self.tail[i][1] = lty
 
             ltx = _ltx
             lty = _lty
 
-        self.snake_pos['x'] += self.snake_pos['x_chng']
-        self.snake_pos['y'] += self.snake_pos['y_chng']
+        self.position['x'] += self.position['x_chng']
+        self.position['y'] += self.position['y_chng']
 
-        if self.snake_pos['x'] < 20:
-            self.snake_pos['x'] = 270
-        elif self.snake_pos['x'] > 270:
-            self.snake_pos['x'] = 20
-        elif self.snake_pos['y'] < 40:
-            self.snake_pos['y'] = 270
-        elif self.snake_pos['y'] > 270:
-            self.snake_pos['y'] = 40
+        if self.position['x'] < 20:
+            self.position['x'] = 270
+        elif self.position['x'] > 270:
+            self.position['x'] = 20
+        elif self.position['y'] < 40:
+            self.position['y'] = 270
+        elif self.position['y'] > 270:
+            self.position['y'] = 40
