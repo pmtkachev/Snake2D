@@ -7,6 +7,7 @@ from src.snake import Snake
 pg.init()
 clock = pg.time.Clock()
 screen = pg.display.set_mode((300, 300))
+pg.display.set_caption('SNAKE 2D')
 
 font = pg.font.Font('fnt/pixel.ttf', 25)
 
